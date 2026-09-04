@@ -1,707 +1,226 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Student Data Management</title>
-
-
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-
-    <!-- MDB CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.css">
-
-
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="data:,">
-
 </head>
-
-
 <body>
-
-
-    <!-- ================================================= -->
-    <!--                 STUDENT DATA SECTION              -->
-    <!-- ================================================= -->
-
     <section class="student-section py-5">
-
         <div class="container">
-
-
-            <!-- Page Heading -->
-
             <div class="text-center mb-5">
-
                 <h1 class="fw-bold">
                     Student Data
                 </h1>
-
                 <p class="text-muted">
                     Manage student information easily
                 </p>
-
             </div>
-
-
-
-            <!-- ================================================= -->
-            <!-- ADD BUTTON + SEARCH                               -->
-            <!-- ================================================= -->
-
             <div class="row mb-4 align-items-center">
-
-
-                <!-- Add Student Button -->
-
                 <div class="col-md-6 mb-3 mb-md-0">
-
                     <button type="button" class="btn btn-primary" id="addStudentBtn" data-bs-toggle="modal"
                         data-bs-target="#studentModal">
-
                         <i class="fas fa-plus me-2"></i>
-
                         Add Student
-
                     </button>
-
                 </div>
-
-
-
-                <!-- Search Student -->
-
                 <div class="col-md-6">
-
                     <div class="input-group">
-
                         <span class="input-group-text">
-
                             <i class="fas fa-search"></i>
-
                         </span>
-
-
                         <input type="text" class="form-control" id="searchStudent" placeholder="Search student by name">
-
                     </div>
-
                 </div>
-
-
             </div>
-
-
-
-            <!-- ================================================= -->
-            <!-- STUDENT TABLE                                     -->
-            <!-- ================================================= -->
-
             <div class="table-responsive">
-
                 <table class="table align-middle mb-0 bg-white">
-
-
-                    <!-- Table Head -->
-
                     <thead class="bg-light">
-
                         <tr>
-
                             <th>Name</th>
-
                             <th>Father Name</th>
-
                             <th>Class</th>
-
                             <th>Subjects</th>
-
                             <th>Marks</th>
-
                             <th>Date</th>
-
                             <th>Actions</th>
-
                         </tr>
-
                     </thead>
-
-
-
-                    <!-- Table Body -->
-
                     <tbody id="studentTableBody">
-
-                        <!--
-                            JavaScript will add students here
-                        -->
-
                     </tbody>
-
-
                 </table>
-
             </div>
-
-
         </div>
-
     </section>
-
-
-
-    <!-- ================================================= -->
-    <!--              ADD STUDENT MODAL                   -->
-    <!-- ================================================= -->
-
-
     <div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
-
-
         <div class="modal-dialog modal-xl modal-dialog-centered">
-
-
             <div class="modal-content">
-
-
-                <!-- ================================================= -->
-                <!-- MODAL HEADER                                      -->
-                <!-- ================================================= -->
-
                 <div class="modal-header">
-
                     <h5 class="modal-title fw-bold" id="studentModalLabel">
-
                         <i class="fas fa-user-plus me-2"></i>
-
                         Add Student
-
                     </h5>
-
-
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-
                     </button>
-
                 </div>
-
-
-
-                <!-- ================================================= -->
-                <!-- MODAL BODY                                        -->
-                <!-- ================================================= -->
-
                 <div class="modal-body p-4">
-
-
                     <div class="row justify-content-center">
-
-
-                        <!-- ================================================= -->
-                        <!-- STUDENT FORM                                     -->
-                        <!-- ================================================= -->
-
                         <div class="col-md-12 col-lg-7">
-
-
-
                             <form id="studentForm" class="mx-1 mx-md-3">
-
-
-                                <!-- ============================== -->
-                                <!-- STUDENT NAME                   -->
-                                <!-- ============================== -->
-
                                 <div class="d-flex flex-row align-items-center mb-4">
-
                                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-
                                     <div data-mdb-input-init class="form-outline flex-fill mb-0">
-
                                         <label class="form-label" for="name">
-
                                             Student Name
-
                                         </label>
-
                                         <input type="text" id="name" class="form-control" required>
-
                                     </div>
-
                                 </div>
-
-
-
-                                <!-- ============================== -->
-                                <!-- FATHER NAME                    -->
-                                <!-- ============================== -->
-
                                 <div class="d-flex flex-row align-items-center mb-4">
-
                                     <i class="fas fa-user-tie fa-lg me-3 fa-fw"></i>
-
                                     <div data-mdb-input-init class="form-outline flex-fill mb-0">
-
                                         <label class="form-label" for="fatherName">
-
                                             Father Name
-
                                         </label>
-
                                         <input type="text" id="fatherName" class="form-control" required>
-
                                     </div>
-
                                 </div>
-
-
-
-                                <!-- ============================== -->
-                                <!-- CLASS                          -->
-                                <!-- ============================== -->
-
                                 <div class="d-flex flex-row align-items-center mb-4">
-
                                     <i class="fas fa-school fa-lg me-3 fa-fw"></i>
-
                                     <div data-mdb-input-init class="form-outline flex-fill mb-0">
-
                                         <label class="form-label" for="studentClass">
-
                                             Class
-
                                         </label>
-
                                         <input type="text" id="studentClass" class="form-control" required>
-
                                     </div>
-
                                 </div>
-
-
-
-                                <!-- ============================== -->
-                                <!-- SUBJECTS                       -->
-                                <!-- ============================== -->
-
                                 <div class="d-flex flex-row align-items-center mb-4">
-
                                     <i class="fas fa-book fa-lg me-3 fa-fw"></i>
-
                                     <div data-mdb-input-init class="form-outline flex-fill mb-0">
-
                                         <label class="form-label" for="subjects">
-
                                             Subjects
-
                                         </label>
-
                                         <input type="text" id="subjects" class="form-control"
                                             placeholder="Example: English, Math, Computer" required>
-
                                     </div>
-
                                 </div>
-
-
-
-                                <!-- ============================== -->
-                                <!-- MARKS                           -->
-                                <!-- ============================== -->
-
                                 <div class="d-flex flex-row align-items-center mb-4">
-
                                     <i class="fas fa-chart-column fa-lg me-3 fa-fw"></i>
-
                                     <div data-mdb-input-init class="form-outline flex-fill mb-0">
-
                                         <label class="form-label" for="marks">
-
                                             Marks
-
                                         </label>
-
                                         <input type="number" id="marks" class="form-control" min="0" required>
-
                                     </div>
-
                                 </div>
-
-
-
-                                <!-- ============================== -->
-                                <!-- SUBMIT BUTTON                  -->
-                                <!-- ============================== -->
-
                                 <div class="d-flex justify-content-center mt-4">
-
                                     <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
-
                                         <i class="fas fa-paper-plane me-2"></i>
-
                                         Submit
-
                                     </button>
-
                                 </div>
-
-
                             </form>
-
-
-
-
                         </div>
-
-
-
-                        <!-- ================================================= -->
-                        <!-- FORM IMAGE                                       -->
-                        <!-- ================================================= -->
-
                         <div class="col-md-12 col-lg-5 d-flex align-items-center justify-content-center">
-
-
                             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
                                 class="img-fluid" alt="Student Illustration">
-
-
                         </div>
-
-
                     </div>
-
-
                 </div>
-
-
-                <!-- ================================================= -->
-                <!-- MODAL FOOTER                                      -->
-                <!-- ================================================= -->
-
                 <div class="modal-footer">
-
-
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-
-
                         <i class="fas fa-times me-2"></i>
-
                         Close
-
-
                     </button>
-
-
                 </div>
-
-
             </div>
-
-
         </div>
-
-
     </div>
-
-
-
-    <!-- ================================================= -->
-    <!--                 REPORTS SECTION                   -->
-    <!-- ================================================= -->
-
-
     <section class="report-section py-5">
-
-
         <div class="container">
-
-
-            <!-- Reports Heading -->
-
             <div class="text-center mb-5">
-
-
                 <h2 class="fw-bold">
-
                     Reports
-
                 </h2>
-
-
                 <p class="text-muted">
-
                     Filter and generate student reports
-
                 </p>
-
-
             </div>
-
-
-
-            <!-- ================================================= -->
-            <!-- REPORT FILTER CARD                                -->
-            <!-- ================================================= -->
-
-
             <div class="card shadow-0 border">
-
-
                 <div class="card-body p-4">
-
-
                     <div class="row g-3">
-
-
-                        <!-- ============================== -->
-                        <!-- START DATE                     -->
-                        <!-- ============================== -->
-
                         <div class="col-md-4">
-
-
                             <label for="startDate" class="form-label">
-
-
                                 <i class="fas fa-calendar me-2"></i>
-
                                 Start Date
-
-
                             </label>
-
-
                             <input type="date" id="startDate" class="form-control">
-
-
                         </div>
-
-
-
-                        <!-- ============================== -->
-                        <!-- END DATE                       -->
-                        <!-- ============================== -->
-
                         <div class="col-md-4">
-
-
                             <label for="endDate" class="form-label">
-
-
                                 <i class="fas fa-calendar me-2"></i>
-
                                 End Date
-
-
                             </label>
-
-
                             <input type="date" id="endDate" class="form-control">
-
-
                         </div>
-
-
-
-                        <!-- ============================== -->
-                        <!-- GENERATE REPORT                -->
-                        <!-- ============================== -->
-
                         <div class="col-md-4 d-flex align-items-end">
-
-
                             <button type="button" class="btn btn-success w-100" id="generateReportBtn">
-
-
                                 <i class="fas fa-file-lines me-2"></i>
-
                                 Generate Report
-
-
                             </button>
-
-
                         </div>
-
-
-
-                        <!-- ============================== -->
-                        <!-- REPORT SEARCH                  -->
-                        <!-- ============================== -->
-
                         <div class="col-md-12 mt-4">
-
-
                             <label for="reportSearch" class="form-label">
-
-
                                 <i class="fas fa-search me-2"></i>
-
                                 Search Student
-
-
                             </label>
-
-
-
                             <div class="input-group">
-
-
                                 <span class="input-group-text">
-
-
                                     <i class="fas fa-search"></i>
-
-
                                 </span>
-
-
                                 <input type="text" id="reportSearch" class="form-control"
                                     placeholder="Enter student name">
-
-
                             </div>
-
-
                         </div>
-
-
                     </div>
-
-
                 </div>
-
-
             </div>
-
-
-
-            <!-- ================================================= -->
-            <!-- REPORT TABLE                                      -->
-            <!-- ================================================= -->
-
-
             <div class="table-responsive mt-5">
-
-
                 <table class="table align-middle mb-0 bg-white">
-
-
                     <thead class="bg-light">
-
-
                         <tr>
-
-
                             <th>Name</th>
-
                             <th>Father Name</th>
-
                             <th>Class</th>
-
                             <th>Subjects</th>
-
                             <th>Marks</th>
-
                             <th>Date</th>
-
-
                         </tr>
-
-
                     </thead>
-
-
-
                     <tbody id="reportTableBody">
-
-                        <!--
-                            JavaScript will add report data here
-                        -->
-
                     </tbody>
-
-
                 </table>
-
-
             </div>
-
-
-
-            <!-- ================================================= -->
-            <!-- DOWNLOAD PDF BUTTON                               -->
-            <!-- ================================================= -->
-
-
             <div class="text-center mt-4">
-
-
                 <button type="button" class="btn btn-danger btn-lg" id="downloadPdfBtn">
-
-
                     <i class="fas fa-file-pdf me-2"></i>
-
                     Download PDF
-
-
                 </button>
-
-
             </div>
-
-
         </div>
-
-
     </section>
-
-
-
-    <!-- ================================================= -->
-    <!-- JAVASCRIPT FILES                                 -->
-    <!-- ================================================= -->
-
-
-    <!-- Bootstrap JavaScript -->
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
         </script>
-
-
-
-    <!-- MDB JavaScript -->
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.js">
     </script>
-
-
-    <!-- jsPDF -->
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-
-    <!-- Custom JavaScript -->
-
     <script src="script.js"></script>
-
-
 </body>
-
 </html>
