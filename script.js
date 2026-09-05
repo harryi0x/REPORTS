@@ -1,3 +1,38 @@
+const currentUser =
+    JSON.parse(localStorage.getItem("currentUser"));
+if (!currentUser) {
+    window.location.href = "login.html";
+}
+const loggedInUser =
+    document.getElementById("loggedInUser");
+if (currentUser && loggedInUser) {
+
+    loggedInUser.innerHTML =
+        `<i class="fas fa-user me-1"></i>
+        ${currentUser.name}
+        (${currentUser.role.toUpperCase()})`;
+}
+const isAdmin =
+    currentUser &&
+    currentUser.role === "admin";
+const logoutBtn =
+    document.getElementById("logoutBtn");
+if (logoutBtn) {
+    logoutBtn.addEventListener("click", function () {
+        const confirmLogout =
+            confirm("Are you sure you want to logout?");
+        if (!confirmLogout) {
+            return;
+        }
+        localStorage.removeItem("currentUser");
+        window.location.href = "login.html";
+    });
+}
+const addStudentBtn =
+    document.getElementById("addStudentBtn");
+if (addStudentBtn && !isAdmin) {
+    addStudentBtn.style.display = "none";
+}
 console.log("SCRIPT.JS LOADED");
 let students = JSON.parse(localStorage.getItem("students")) || [];
 let editIndex = -1;
@@ -12,19 +47,35 @@ function displayStudents() {
     studentTableBody.innerHTML = "";
     if (students.length === 0) {
         studentTableBody.innerHTML = `
-        
             <tr>
-                <td colspan="7" class="text-center text-muted py-4">
+                <td colspan="7"
+                    class="text-center text-muted py-4">
                     No students added yet.
                 </td>
             </tr>
-        
         `;
         return;
     }
     students.forEach(function (student, index) {
-        studentTableBody.innerHTML += `
+        let actionButtons = "";
+        if (isAdmin) {
+            actionButtons = `
+                <button
+                    onclick="editStudent(${index})"
+                    class="btn btn-warning btn-sm me-1">
+                    <i class="fas fa-edit"></i>
+                    Edit
+                </button>
+                <button
+                    onclick="deleteStudent(${index})"
+                    class="btn btn-danger btn-sm">
+                    <i class="fas fa-trash"></i>
+                    Delete
+                </button>
+            `;
+        }
         
+        studentTableBody.innerHTML += `
             <tr>
                 <td>${student.name}</td>
                 <td>${student.fatherName}</td>
@@ -33,25 +84,17 @@ function displayStudents() {
                 <td>${student.marks}</td>
                 <td>${student.date}</td>
                 <td>
-                    <button
-                        onclick="editStudent(${index})"
-                        class="btn btn-warning btn-sm me-1">
-                        <i class="fas fa-edit"></i>
-                        Edit
-                    </button>
-                    <button
-                        onclick="deleteStudent(${index})"
-                        class="btn btn-danger btn-sm">
-                        <i class="fas fa-trash"></i>
-                        Delete
-                    </button>
+                    ${actionButtons}
                 </td>
             </tr>
-        
         `;
     });
 }
 studentForm.addEventListener("submit", function (event) {
+    if (!isAdmin) {
+        alert("You are not authorized to add or update students.");
+        return;
+    }
     event.preventDefault();
     const name = nameInput.value.trim();
     const fatherName = fatherNameInput.value.trim();
@@ -85,7 +128,7 @@ studentForm.addEventListener("submit", function (event) {
         date: studentDate
     };
     if (editIndex === -1) {
-        students.push(student);
+        students.unshift(student);
         console.log("Student Added:", student);
     }
     else {
@@ -110,6 +153,10 @@ studentForm.addEventListener("submit", function (event) {
     }
 });
 function editStudent(index) {
+    if (!isAdmin) {
+        alert("You are not authorized to edit students.");
+        return;
+    }
     const student = students[index];
     if (!student) {
         return;
@@ -131,6 +178,10 @@ function editStudent(index) {
 }
 window.editStudent = editStudent;
 function deleteStudent(index) {
+    if (!isAdmin) {
+        alert("You are not authorized to delete students.");
+        return;
+    }
     if (!students[index]) {
         return;
     }
